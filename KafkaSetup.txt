@@ -1,0 +1,17 @@
+# Navigate to the Kafka installation directory
+cd C:/SOFTWARE_DOWNLOADS/APACHE_KAFKA/kafka_2.13-3.7.1
+
+# Start the Zookeeper server
+./bin/zookeeper-server-start.sh ./config/zookeeper.properties
+
+# Start the Kafka server
+./bin/kafka-server-start.sh ./config/server.properties
+
+# Create a Kafka topic named "test"
+./bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --topic test
+
+# Start the Kafka producer
+./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+
+# Start the Kafka consumer
+./bin/kafka-console-consumer.sh --topic test --bootstrap-server localhost:9092 --from-beginning

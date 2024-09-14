@@ -1,0 +1,12 @@
+spring:
+ application:
+  name: User-Profile-API
+ datasource:
+  url: jdbc:postgresql://localhost:5432/database_01?currentSchema=kafka_producer_consumer
+  username: postgres
+  password: password
+  driver-class-name: org.postgresql.Driver
+ jpa:
+  database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+ port: 8082
