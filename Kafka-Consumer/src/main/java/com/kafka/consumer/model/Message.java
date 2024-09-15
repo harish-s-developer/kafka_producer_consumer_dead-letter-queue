@@ -1,6 +1,10 @@
 package com.kafka.consumer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Message {
+
 	private String action;
 	private Long uniqueId;
 	private String firstName;

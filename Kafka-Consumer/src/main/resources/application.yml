@@ -11,3 +11,4 @@ spring:
    topic: test
 server:
   port: 8081
+user_profile_base_url: http://localhost:8082/
