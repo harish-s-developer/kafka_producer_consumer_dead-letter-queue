@@ -2,9 +2,11 @@ package com.kafka.consumer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,13 +43,19 @@ public class KafkaConsumer {
 			System.out.println("Hello");
 			Message userProfile = getUserByEmail(messageObj.getEmailId());
 			System.out.println("Email Id: " + userProfile.getEmailId());
+		} catch (HttpClientErrorException exception) {
+			if (exception.getStatusCode() == HttpStatus.NOT_FOUND) {
+				System.out.println("Not found");
+			} else {
+				System.out.println(exception.getMessage());
+			}
 		} catch (Exception exception) {
 			System.out.println(exception.getMessage());
 		}
 	}
 
 	public Message getUserByEmail(String email) {
-		String url = userProfileBaseUrl + "/email?email=" + email;
+		String url = userProfileBaseUrl + "/api/users/email?email=" + email;
 		ResponseEntity<Message> response = restTemplate.getForEntity(url, Message.class);
 		return response.getBody();
 	}
